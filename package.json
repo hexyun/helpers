@@ -11,11 +11,16 @@
     "build": "(if [ ! -d dist ];then  mkdir dist; fi) && rm -fr dist/* && node build/build.js",
     "watch": "./node_modules/.bin/watch \"npm run build\" src/",
     "prepublish": "npm run build",
-    "jasmine": "istanbul cover jasmine-node -- --matchall tests"
+    "jasmine": "istanbul cover jasmine-node -- --matchall tests",
+    "lint": "./node_modules/standard/bin/cmd.js"
   },
   "dependencies": {
     "babel-preset-es2015-rollup": "^3.0.0",
     "babel-runtime": "6.11.x",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.0",
+    "husky": "0.15.0-rc.13",
+    "lint-staged": "9.5.0",
     "rollup": "^1.31.1",
     "rollup-plugin-babel": "3",
     "rollup-plugin-commonjs": "^10.1.0",
@@ -31,7 +36,23 @@
     "uglify-js": "^2.7.0",
     "watch": "^0.19.2"
   },
-  "bugs": "",
+  "lint-staged": {
+    "src/**/*.js": [
+      "npm run lint"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
+  "standard": {
+    "ignore": [
+      "dist",
+      "node_modules"
+    ]
+  },
+  "bugs": "https://github.com/hexyun/helpers/issues",
   "author": "huangjiangtao@hexdo.com",
   "license": "BSD 3-Clause"
 }

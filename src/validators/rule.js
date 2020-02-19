@@ -1,4 +1,5 @@
-let rules = {}
+/* eslint-disable no-useless-escape */
+const rules = {}
 
 addRule('mobile', /^1\d{10}$/, '{{text}}的格式不正确')
 addRule('min', (val, rule) => Number(val) >= Number(rule), '{{text}}必须大于或等于{{min}}')
@@ -22,7 +23,7 @@ addRule('required', (val, rule) => {
   return typeof val === 'string' ? val.trim() : val
 }, '请输入{{text}}')
 
-function addRule(name, operator, message, silent) {
+function addRule (name, operator, message, silent) {
   if (rules[name] && !silent) {
     throw new Error('Rule already exists')
   }
@@ -36,19 +37,19 @@ function addRule(name, operator, message, silent) {
   rules[name] = { exec, message }
 }
 
-function getRule(name) {
+function getRule (name) {
   return rules[name] ? rules[name] : {
-    exec() {},
+    exec () {},
     message: ''
   }
 }
 
-function isBoolean(obj) {
+function isBoolean (obj) {
   return obj === true || obj === false
 }
 
-function toArray(obj) {
-  return Array.isArray(obj) ? obj: [obj]
+function toArray (obj) {
+  return Array.isArray(obj) ? obj : [obj]
 }
 
 export default {
