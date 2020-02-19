@@ -1,0 +1,37 @@
+{
+  "name": "helpers",
+  "private": true,
+  "version": "0.1.0",
+  "description": "helpers for hexyun dev",
+  "main": "dist/helpers.common.js",
+  "module": "dist/vue.helpers.esm.js",
+  "scripts": {
+    "test": "npm run jasmine",
+    "clean": "rm -fr dist/*",
+    "build": "(if [ ! -d dist ];then  mkdir dist; fi) && rm -fr dist/* && node build/build.js",
+    "watch": "./node_modules/.bin/watch \"npm run build\" src/",
+    "prepublish": "npm run build",
+    "jasmine": "istanbul cover jasmine-node -- --matchall tests"
+  },
+  "dependencies": {
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "babel-runtime": "6.11.x",
+    "rollup": "^1.31.1",
+    "rollup-plugin-babel": "3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-standard": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.13.2",
+    "html-minifier": "^3.0.2",
+    "istanbul": "^0.4.5",
+    "jasmine-node": "^1.14.5",
+    "rollup-plugin-replace": "^1.1.1",
+    "uglify-js": "^2.7.0",
+    "watch": "^0.19.2"
+  },
+  "bugs": "",
+  "author": "huangjiangtao@hexdo.com",
+  "license": "BSD 3-Clause"
+}
