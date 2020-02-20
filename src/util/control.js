@@ -32,7 +32,6 @@ export const process = function (define, controlProps, keyFn = noop, complexFn =
     for (const k in props) {
       if (!_isHiddenProp(props, k)) {
         const prop = props[k]
-        console.log(k, prop)
         if (prop.slot) slot = true
         if (isPropEvent(prop) && isComplexFn) {
           const complexEvents = complexFn(controlProps[k], prop._$eventParams)
