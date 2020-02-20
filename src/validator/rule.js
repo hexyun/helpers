@@ -52,7 +52,7 @@ function toArray (obj) {
   return Array.isArray(obj) ? obj : [obj]
 }
 
-export default {
+module.exports = {
   addRule,
   getRule
 }

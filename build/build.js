@@ -23,6 +23,7 @@ rollup.rollup({
   plugins: [
     standard(),
     babel({
+      babelrc: false,
       exclude: 'node_modules/**'
     })
   ]
@@ -42,7 +43,7 @@ rollup.rollup({
       replace({
         'process.env.NODE_ENV': JSON.stringify('development')
       }),
-      babel()
+      babel({ babelrc: false })
     ]
   }).then((bundle) => {
     return bundle.generate({
@@ -60,7 +61,7 @@ rollup.rollup({
       replace({
         'process.env.NODE_ENV': JSON.stringify('development')
       }),
-      babel()
+      babel({ babelrc: false })
     ]
   }).then((bundle) => {
     return bundle.generate({
@@ -78,7 +79,7 @@ rollup.rollup({
       replace({
         'process.env.NODE_ENV': JSON.stringify('production')
       }),
-      babel()
+      babel({ babelrc: false })
     ]
   }).then((bundle) => {
     bundle.generate({
@@ -87,7 +88,7 @@ rollup.rollup({
       banner: banner,
       name: moduleName
     }).then(r => {
-      let code = r.output[0].code
+      const code = r.output[0].code
       var res = uglify.minify(code, {
         fromString: true,
         outSourceMap: `${name}.min.js.map`,

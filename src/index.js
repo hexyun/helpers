@@ -1,8 +1,8 @@
-import detector from './detector'
-import rules from './validators/rule'
-import Validator from './validators/Validator'
-import controlCompiler from './compiler/control'
-export default {
+const detector = require('./detector')
+const rules = require('./validators/rule')
+const Validator = require('./validators/Validator')
+const controlCompiler = require('./compiler/control')
+module.exports = {
   detector,
   rules,
   Validator,

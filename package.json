@@ -6,39 +6,37 @@
   "main": "dist/helpers.common.js",
   "module": "dist/vue.helpers.esm.js",
   "scripts": {
-    "test": "npm run jasmine",
+    "test": "jest test",
     "clean": "rm -fr dist/*",
     "build": "(if [ ! -d dist ];then  mkdir dist; fi) && rm -fr dist/* && node build/build.js",
-    "watch": "./node_modules/.bin/watch \"npm run build\" src/",
+    "watch": "watch \"npm run build\" src",
     "prepublish": "npm run build",
-    "jasmine": "istanbul cover jasmine-node -- --matchall tests",
     "lint": "./node_modules/standard/bin/cmd.js"
   },
   "dependencies": {
-    "babel-preset-es2015-rollup": "^3.0.0",
-    "babel-runtime": "6.11.x",
+    "@babel/core": "^7.8.4",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.0",
     "husky": "0.15.0-rc.13",
+    "jest": "^25.1.0",
     "lint-staged": "9.5.0",
     "rollup": "^1.31.1",
-    "rollup-plugin-babel": "3",
+    "rollup-plugin-babel": "latest",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-standard": "^1.0.0"
+    "rollup-plugin-standard": "^1.0.0",
+    "watch": "^1.0.2"
   },
   "devDependencies": {
-    "babel-core": "^6.13.2",
     "html-minifier": "^3.0.2",
     "istanbul": "^0.4.5",
-    "jasmine-node": "^1.14.5",
     "rollup-plugin-replace": "^1.1.1",
-    "uglify-js": "^2.7.0",
-    "watch": "^0.19.2"
+    "uglify-js": "^2.7.0"
   },
   "lint-staged": {
     "src/**/*.js": [
-      "npm run lint"
+      "npm run lint",
+      "npm run test"
     ]
   },
   "husky": {
@@ -51,6 +49,24 @@
       "dist",
       "node_modules"
     ]
+  },
+  "jest": {
+    "globalSetup": "",
+    "globals": {},
+    "modulePaths": [
+      "src"
+    ],
+    "transformIgnorePatterns": [
+      "<rootDir>/dist",
+      "<rootDir>/build",
+      "<rootDir>/node_modules"
+    ],
+    "moduleNameMapper": {
+      "^@util(.*)$": "<rootDir>/src/util$1",
+      "^@validators(.*)$": "<rootDir>/src/validator$1",
+      "^@src(.*)$": "<rootDir>/src$1",
+      "^@detector(.*)$": "<rootDir>/src/detector$1"
+    }
   },
   "bugs": "https://github.com/hexyun/helpers/issues",
   "author": "huangjiangtao@hexdo.com",
