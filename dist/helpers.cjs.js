@@ -1,11 +1,13 @@
 'use strict';
 
-const type = type => Object.prototype.toString.call('').match(/\[object (\w+)\]/);
+const type = t => Object.prototype.toString.call(t).match(/\[object (\w+)\]/)[1];
 
 const typeList = ['Array', 'Object', 'Undefined', 'Null', 'Function', 'RegExp', 'Date'];
 
 var types = typeList.reduce((l, p) => {
-  l[`is${p}`] = t => type() === p;
+  l[`is${p}`] = t => {
+    return type(t) === p
+  };
   return l
 }, {});
 
@@ -125,24 +127,23 @@ const process$1 = function (define, controlProps, keyFn = noop, complexFn = noop
   const data = {};
   let slots = [];
   let slot = false;
+  const isKeyFn = isFunction(keyFn);
+  const isComplexFn = isFunction(complexFn);
   if (define && define.props) {
     const props = define.props;
     for (const k in props) {
       if (!_isHiddenProp(props, k)) {
         const prop = props[k];
         if (prop.slot) slot = true;
-
-        if (isPropEvent && isFunction(complexFn)) {
+        if (isPropEvent(prop) && isComplexFn) {
           const complexEvents = complexFn(controlProps[k], prop._$eventParams);
           if (complexEvents && complexEvents.length > 0) {
             events.push(`@${prop._event}=${complexEvents}`);
           }
           // 事件前台不处理
-        } else {
-          if (isFunction(keyFn)) {
-            const key = keyFn(k);
-            attrs.push(`:${kebabCase(k)}="${key}"`);
-          }
+        } else if (isKeyFn) {
+          const key = keyFn(k);
+          attrs.push(`:${kebabCase(k)}="${key}"`);
         }
       }
     }
