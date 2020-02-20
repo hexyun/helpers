@@ -25,24 +25,24 @@ export const process = function (define, controlProps, keyFn = noop, complexFn =
   const data = {}
   let slots = []
   let slot = false
+  const isKeyFn = isFunction(keyFn)
+  const isComplexFn = isFunction(complexFn)
   if (define && define.props) {
     const props = define.props
     for (const k in props) {
       if (!_isHiddenProp(props, k)) {
         const prop = props[k]
+        console.log(k, prop)
         if (prop.slot) slot = true
-
-        if (isPropEvent && isFunction(complexFn)) {
+        if (isPropEvent(prop) && isComplexFn) {
           const complexEvents = complexFn(controlProps[k], prop._$eventParams)
           if (complexEvents && complexEvents.length > 0) {
             events.push(`@${prop._event}=${complexEvents}`)
           }
           // 事件前台不处理
-        } else {
-          if (isFunction(keyFn)) {
-            const key = keyFn(k)
-            attrs.push(`:${kebabCase(k)}="${key}"`)
-          }
+        } else if (isKeyFn) {
+          const key = keyFn(k)
+          attrs.push(`:${kebabCase(k)}="${key}"`)
         }
       }
     }

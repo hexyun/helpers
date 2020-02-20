@@ -1,4 +1,4 @@
-export default {
+const define = {
   type: 'hex-layout',
   group: 'layout',
   name: '页面布局',
@@ -31,4 +31,16 @@ export default {
 
   // events 保证原来不报错
   events: {}
+}
+const data = {
+  type: 'hex-layout',
+  name: 'hex-layout-1',
+  props: {
+    menu: '11',
+    content: '22',
+    footer: '33'
+  }
+}
+export default {
+  data, define
 }
