@@ -1,53 +1,47 @@
 {
   "name": "helpers",
+  "version": "0.0.1",
+  "entry": "src/main.js",
+  "main": "dist/helpers.cjs.js",
+  "module": "dist/helpers.esm.js",
+  "browser": "dist/helpers.min.js",
   "private": true,
-  "version": "0.1.0",
-  "description": "helpers for hexyun dev",
-  "main": "dist/helpers.common.js",
-  "module": "dist/vue.helpers.esm.js",
-  "scripts": {
-    "test": "jest test",
-    "clean": "rm -fr dist/*",
-    "build": "(if [ ! -d dist ];then  mkdir dist; fi) && rm -fr dist/* && node build/build.js",
-    "watch": "watch \"npm run build\" src",
-    "prepublish": "npm run build",
-    "lint": "./node_modules/standard/bin/cmd.js"
+  "license": "BSD 3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/algolia/rollup-jest-boilerplate"
   },
-  "dependencies": {
-    "@babel/core": "^7.8.4",
+  "devDependencies": {
+    "@babel/core": "7.8.4",
+    "@babel/preset-env": "7.8.4",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "24.9.0",
+    "concurrently": "4.1.2",
+    "rollup": "1.31.1",
+    "rollup-plugin-babel": "4.3.3",
+    "rollup-plugin-commonjs": "10.1.0",
+    "rollup-plugin-node-resolve": "5.2.0",
+    "serve": "11.3.0",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.0",
     "husky": "0.15.0-rc.13",
     "jest": "^25.1.0",
-    "lint-staged": "9.5.0",
-    "rollup": "^1.31.1",
-    "rollup-plugin-babel": "latest",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-standard": "^1.0.0",
-    "watch": "^1.0.2"
+    "lint-staged": "^10.0.7",
+    "rollup-plugin-terser": "^5.2.0",
+    "standard": "^14.3.1"
   },
-  "devDependencies": {
-    "html-minifier": "^3.0.2",
-    "istanbul": "^0.4.5",
-    "rollup-plugin-replace": "^1.1.1",
-    "uglify-js": "^2.7.0"
+  "scripts": {
+    "prepare": "yarn build",
+    "build": "rollup -c",
+    "build:watch": "rollup -c -w",
+    "watch": "concurrently 'yarn build:watch' 'yarn serve -l tcp://127.0.0.1'",
+    "test": "jest test",
+    "lint": "./node_modules/standard/bin/cmd.js"
   },
   "lint-staged": {
     "src/**/*.js": [
       "npm run lint",
       "npm run test"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint && npm run test"
-    }
-  },
-  "standard": {
-    "ignore": [
-      "dist",
-      "node_modules"
     ]
   },
   "jest": {
@@ -68,7 +62,18 @@
       "^@detector(.*)$": "<rootDir>/src/detector$1"
     }
   },
-  "bugs": "https://github.com/hexyun/helpers/issues",
-  "author": "huangjiangtao@hexdo.com",
-  "license": "BSD 3-Clause"
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run test"
+    }
+  },
+  "standard": {
+    "ignore": [
+      "dist",
+      "node_modules"
+    ]
+  },
+  "files": [
+    "dist"
+  ]
 }

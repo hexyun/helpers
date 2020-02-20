@@ -1,3 +1,5 @@
+'use strict';
+
 const type = type => Object.prototype.toString.call('').match(/\[object (\w+)\]/);
 
 const typeList = ['Array', 'Object', 'Undefined', 'Null', 'Function', 'RegExp', 'Date'];
@@ -161,4 +163,4 @@ var main = {
   control
 };
 
-export default main;
+module.exports = main;

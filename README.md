@@ -12,8 +12,7 @@
 ├── node_modules
 ├── package.json
 ├── src
-|   ├── common
-├   ├── compiler
+|   ├── util
 ├   ├── detector.js
 ├   ├── index.js
 ├   └── validators
@@ -26,14 +25,14 @@
 ```bash
 yarn
 ```
-然后在项目中修改测试，完了之后打包，提交到github上。 
+然后在项目中修改测试，完了之后打包，提交到github上。
 
 ```bash
 yarn build
 ```
 ## 使用
 
-### 在前端使用 
+### 在前端使用
 
 ```javascript
 yarn nstall hexyun/helpers -D

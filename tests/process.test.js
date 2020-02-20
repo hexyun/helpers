@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
-const layout = require('./features/layout')
-const { process } = require('@util/control.js')
+import layout from './features/layout'
+import { process } from '@util/control.js'
 
 describe('process', () => {
   it('process default', async () => {

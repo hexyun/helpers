@@ -1,4 +1,5 @@
-const { isFunction } = require('./base')
+import types from './base'
+const isFunction = types.isFunction
 function noop () {}
 // 和 后端的componentFeCompiler process一致
 function _isHiddenProp (props, k) {
@@ -18,7 +19,7 @@ function isPropEvent (prop) {
  * @param {*} keyFn 循环对每个key的处理函数
  * @param {*} complexFn 循环对每个complex的处理函数
  */
-function process (define, controlProps, keyFn = noop, complexFn = noop) {
+export const process = function (define, controlProps, keyFn = noop, complexFn = noop) {
   const events = []
   const attrs = []
   const data = {}
@@ -48,10 +49,4 @@ function process (define, controlProps, keyFn = noop, complexFn = noop) {
     if (slot) slots = '#slots#'
   }
   return { events, attrs, data, slots }
-}
-
-module.exports = {
-  process,
-  isPropEvent,
-  kebabCase
 }
