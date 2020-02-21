@@ -135,10 +135,14 @@
 
 
   const process$1 = function (define, controlProps, keyFn = noop, complexFn = noop) {
-    const events = [];
-    const attrs = [];
-    const data = {};
-    let slots = [];
+    const events = []; // @event="fn"
+
+    const attrs = []; // :type="type"
+
+    const data = {}; // vue data scope
+
+    let slots = []; // slot handle
+
     let slot = false;
     const isKeyFn = isFunction(keyFn);
     const isComplexFn = isFunction(complexFn);
@@ -155,12 +159,14 @@
             const complexEvents = complexFn(controlProps[k], prop._$eventParams);
 
             if (complexEvents && complexEvents.length > 0) {
-              events.push(`@${prop._event}=${complexEvents}`);
+              // 内置字段，业务需要后续考虑解耦
+              events.push(`@${prop._$event}=${complexEvents}`);
             } // 事件前台不处理
 
           } else if (isKeyFn) {
             const key = keyFn(k);
             attrs.push(`:${kebabCase(k)}="${key}"`);
+            data[key] = controlProps[k] || null;
           }
         }
       }
