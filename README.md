@@ -1,4 +1,5 @@
 ---
+
 ## 编码要求
 
 编码规范遵循 standard代码规范。代码块请按照功能模块分目录
@@ -35,15 +36,15 @@ yarn build
 ### 在前端使用
 
 ```javascript
-yarn nstall hexyun/helpers -D
-import helpers  from 'helpers'
+yarn install hexyun.helpers -D
+import helpers  from 'hexyun.helpers'
 console.log(helpers)
 ```
 ### 在后端使用
 
 ```javascript
-yarn install hexyun/helpers -D
-const helpers = require('helppers')
+yarn install hexyun.helpers -D
+const helpers = require('hexyun.helppers')
 console.log(helpers)
 ```
 

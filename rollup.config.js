@@ -4,9 +4,10 @@ import pkg from './package.json'
 import babel from 'rollup-plugin-babel'
 import { terser } from 'rollup-plugin-terser'
 
-const normalFileName = `dist/${pkg.name}.js`
+const basename = pkg.name.split('.').pop()
+const normalFileName = `dist/${basename}.js`
 const output = {
-  name: pkg.name,
+  name: basename,
   file: pkg.browser,
   format: 'umd'
 }
