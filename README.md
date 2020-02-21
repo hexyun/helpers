@@ -52,6 +52,6 @@ console.log(helpers)
 如果觉得慢， 请把资源同步到seed 或 oss上。更换地址即可。
 ```javascript
 
-<script src="https://raw.githubusercontent.com/hexyun/helpers/master/dist/helpers.min.js"></script>
+<script src="https://unpkg.com/hexyun.helpers@0.0.4/dist/helpers.min.js"></script>
 
 ```
