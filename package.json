@@ -1,6 +1,6 @@
 {
   "name": "helpers",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "entry": "src/main.js",
   "main": "dist/helpers.cjs.js",
   "module": "dist/helpers.esm.js",
