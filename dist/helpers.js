@@ -4,11 +4,13 @@
   (global = global || self, global.helpers = factory());
 }(this, (function () { 'use strict';
 
-  const type = t => Object.prototype.toString.call(t).match(/\[object (\w+)\]/)[1];
+  var type = function type(t) {
+    return Object.prototype.toString.call(t).match(/\[object (\w+)\]/)[1];
+  };
 
-  const typeList = ['Array', 'Object', 'Undefined', 'Null', 'Function', 'RegExp', 'Date'];
-  var types = typeList.reduce((l, p) => {
-    l[`is${p}`] = t => {
+  var typeList = ['Array', 'Object', 'Undefined', 'Null', 'Function', 'RegExp', 'Date'];
+  var types = typeList.reduce(function (l, p) {
+    l["is".concat(p)] = function (t) {
       return type(t) === p;
     };
 
@@ -20,19 +22,27 @@
     'default': types
   });
 
-  const isBrowser = () => undefined(window) && undefined(document);
+  var isBrowser = function isBrowser() {
+    return undefined(window) && undefined(document);
+  };
 
-  const isNode = () => undefined(global) && undefined(process) && undefined(process.cwd);
+  var isNode = function isNode() {
+    return undefined(global) && undefined(process) && undefined(process.cwd);
+  };
 
-  const isClientRuntime = () => isBrowser() && window.__client;
+  var isClientRuntime = function isClientRuntime() {
+    return isBrowser() && window.__client;
+  };
 
-  const isApp = () => isBrowser() && window.navigator.userAgent.match(/mobile/);
+  var isApp = function isApp() {
+    return isBrowser() && window.navigator.userAgent.match(/mobile/);
+  };
 
   var detector = {
-    isBrowser,
-    isNode,
-    isClientRuntime,
-    isApp
+    isBrowser: isBrowser,
+    isNode: isNode,
+    isClientRuntime: isClientRuntime,
+    isApp: isApp
   };
 
   var detector$1 = /*#__PURE__*/Object.freeze({
@@ -108,18 +118,20 @@
 
   class Validator {}
 
-  const isFunction = types.isFunction;
+  var isFunction = types.isFunction;
 
   function noop() {} // 和 后端的componentFeCompiler process一致
 
 
   function _isHiddenProp(props, k) {
-    const prop = props[k];
+    var prop = props[k];
     return prop.type === 'not-show' || props.type === 'hidden' || /^\[\w+\]$/.test(k);
   }
 
   function kebabCase(k) {
-    return k.replace(/[A-Z]/g, $0 => `-${$0.toLowerCase()}`);
+    return k.replace(/[A-Z]/g, function ($0) {
+      return "-".concat($0.toLowerCase());
+    });
   }
 
   function isPropEvent(prop) {
@@ -134,38 +146,40 @@
    */
 
 
-  const process$1 = function (define, controlProps, keyFn = noop, complexFn = noop) {
-    const events = []; // @event="fn"
+  var process$1 = function process(define, controlProps) {
+    var keyFn = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : noop;
+    var complexFn = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : noop;
+    var events = []; // @event="fn"
 
-    const attrs = []; // :type="type"
+    var attrs = []; // :type="type"
 
-    const data = {}; // vue data scope
+    var data = {}; // vue data scope
 
-    let slots = []; // slot handle
+    var slots = []; // slot handle
 
-    let slot = false;
-    const isKeyFn = isFunction(keyFn);
-    const isComplexFn = isFunction(complexFn);
+    var slot = false;
+    var isKeyFn = isFunction(keyFn);
+    var isComplexFn = isFunction(complexFn);
 
     if (define && define.props) {
-      const props = define.props;
+      var props = define.props;
 
-      for (const k in props) {
+      for (var k in props) {
         if (!_isHiddenProp(props, k)) {
-          const prop = props[k];
+          var prop = props[k];
           if (prop.slot) slot = true;
 
           if (isPropEvent(prop) && isComplexFn) {
-            const complexEvents = complexFn(controlProps[k], prop._$eventParams);
+            var complexEvents = complexFn(controlProps[k], prop._$eventParams);
 
             if (complexEvents && complexEvents.length > 0) {
               // 内置字段，业务需要后续考虑解耦
-              events.push(`@${prop._$event}=${complexEvents}`);
+              events.push("@".concat(prop._$event, "=").concat(complexEvents));
             } // 事件前台不处理
 
           } else if (isKeyFn) {
-            const key = keyFn(k);
-            attrs.push(`:${kebabCase(k)}="${key}"`);
+            var key = keyFn(k);
+            attrs.push(":".concat(kebabCase(k), "=\"").concat(key, "\""));
             data[key] = controlProps[k] || null;
           }
         }
@@ -175,10 +189,10 @@
     }
 
     return {
-      events,
-      attrs,
-      data,
-      slots
+      events: events,
+      attrs: attrs,
+      data: data,
+      slots: slots
     };
   };
 
